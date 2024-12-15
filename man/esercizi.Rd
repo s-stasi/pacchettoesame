@@ -2,9 +2,13 @@
 % Please edit documentation in R/main.R
 \name{esercizi}
 \alias{esercizi}
-\title{\subsection{title: "ex. cap7"
+\title{\subsection{title: "Stima"
+author: ""
+date: "2024-11-11"
 output: html_document
-date: "2024-12-05"}{
+editor_options:
+markdown:
+wrap: 72}{
 }}
 \usage{
 esercizi(data)
@@ -16,9 +20,9 @@ esercizi(data)
 Una struttura dipendente dal comportamento della funzione implementata.
 }
 \description{
-# pag. 211
+
 }
-\details{
+\section{pag. 211}{
 \subsection{8.2}{
 
 I tempi di reazione a uno stimolante per un campione casuale di 9 soggetti sono stati 2.5, 3.6, 3.1, 4.3, 2.9, 2.3, 2.6, 4.1, e 3.4 secondi. Calcolare media e mediana.
@@ -313,6 +317,7 @@ compresa tra 3.462 e 10.745.
 }\if{html}{\out{</div>}}
 }
 }
+
 \section{pag. 256}{
 \subsection{9.1}{
 

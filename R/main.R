@@ -1,8 +1,17 @@
+#'
 #' ---
-#' title: "ex. cap7"
+#'   title: "Stima"
+#' author: ""
+#' date: "2024-11-11"
 #' output: html_document
-#' date: "2024-12-05"
+#' editor_options:
+#'   markdown:
+#'   wrap: 72
 #' ---
+#'
+#'   ```{r setup, include=FALSE}
+#' knitr::opts_chunk$set(echo = TRUE)
+#' ```
 #'
 #' # pag. 211
 #'
@@ -987,3 +996,6 @@ esercizi <- function(data) {
   # Implementazione della funzione
   return(NULL)
 }
+?esercizi
+?esercitazioni
+?formulario
