@@ -1,0 +1,565 @@
+---
+title: "ex. cap9"
+output: html_document
+date: "2024-12-05"
+---
+
+# pag. 256
+
+## 9.1
+Un ricercatore di UCLA afferma che la durata della vita dei topi può essere aumentata fino al 25%, quando le calorie nella loro dieta dal momento in cui sono svezzati, sono ridotte di circa il 40%. La dieta stretta viene arricchita da vitamine e proteine. Si assuma che sia noto da studi precedenti che σ = 5.8 mesi.
+Quanti topi devono essere inclusi nel campione, se si vuole essere confidenti al 99% che la durata della vita media calcolata sul campione differisca non più di 2 mesi dalla vita media della popolazione di tutti i topi sottoposti a questa dieta ridotta?
+```{r}
+# IC per la MEDIA: varianza nota --> d.normale Z
+# trovare n (dimensione campione)
+  sigma = 5.8
+  alpha = 1-0.99
+  me = 2
+  
+  z_a2 = qnorm(1-alpha/2)
+  
+  n = (z_a2 * sigma / me)^2
+    n
+  
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 9.2
+Molti pazienti cardiopatici portano un pacemaker impiantato per controllare il battito cardiaco. Uno specifico componente in plastica viene montato sulla parte superiore del pacemaker. Si assume una deviazione standard di 0.0015 pollici e una distribuzione approssimativamente normale.
+Trovare un intervallo di confidenza al 95% per la media delle profondità di tutti i componenti prodotti da una certa società sapendo che un campione casuale di 75 componenti ha una profondità media di 0.310 pollici.
+```{r}
+# IC per la MEDIA: varianza nota --> d.normale Z
+# trovare IC
+  sigma = 0.0015
+  alpha = 1-0.95
+  n = 75
+  xbar = 0.310
+  
+  z_a2 = qnorm(1-alpha/2)
+  
+  lower = xbar - z_a2 * sigma / sqrt(n)
+  upper = xbar + z_a2 * sigma / sqrt(n)
+
+  IC <- c(lower, upper)
+    IC
+    
+```
+
+
+
+
+
+
+## 9.3
+Un campione casuale di 100 proprietari di automobili, nello stato della Virginia guida l’auto in media 23500 km all’anno con una deviazione standard di 3900 chilometri. Assumere che la distribuzione del chilometraggio sia approssimativamente normale.
+
+1. Costruire un intervallo di confidenza al 99% per il numero medio di chilometri che un’automobile percorre ogni anno in Virginia.
+```{r}
+# IC per la MEDIA: varianza nota --> d.normale Z
+# trovare IC
+  n = 100
+  xbar = 23500
+  sigma = 3900
+  alpha = 1-0.99
+  
+  z_a2 = qnorm(1-alpha/2)
+  
+  lower = xbar - z_a2 * sigma / sqrt(n)
+  upper = xbar + z_a2 * sigma / sqrt(n)
+
+  IC <- c(lower, upper)
+    IC
+  
+```
+
+2. Cosa si può affermare al 99% di confidenza sulla possibile grandezza dell’errore se si stima che il numero medio di chilometri percorsi dai proprietari di auto in Virginia è 23500 km all’anno?
+```{r}
+# IC per la MEDIA: varianza nota --> d.normale Z
+# trovare errore
+  n = 100
+  xbar = 23500
+  sigma = 3900
+  alpha = 1-0.99
+  
+  z_a2 = qnorm(1-alpha/2)
+  
+  me = z_a2 * sigma / sqrt(n)
+    me
+
+```
+
+
+
+
+
+
+## 9.5
+Il consumo regolare di cereali zuccherati contribuisce alla carie dei denti, alle malattie cardiache e ad altre malattie degenerative, secondo gli studi condotti dal Dr. WH Bowen del National Institute of Health e dal Dr. J. Yudben, Professore di Nutrizione e Dietetica presso l’Università di Londra. In un campione casuale composto da 20 singole porzioni simili di Alpha-Bits, il contenuto medio di zucchero è pari a 11.3 grammi con una deviazione standard di 2.45 grammi. 
+Supponendo che il tenore di zucchero sia normalmente distribuito, costruire un intervallo di confidenza al 95% per lo zucchero medio contenuto nelle singole porzioni di Alpha-Bits.
+```{r}
+# IC per la MEDIA: varianza nota --> d.normale Z
+# trovare IC
+  n = 20
+  xbar = 11.3
+  sigma = 2.45
+  alpha = 1-0.95
+  
+  z_a2 = qnorm(1-alpha/2)
+  
+  lower = xbar - z_a2 * sigma / sqrt(n)
+  upper = xbar + z_a2 * sigma / sqrt(n)
+
+  IC <- c(lower, upper)
+    IC
+    
+```
+
+
+
+
+
+
+## 9.6
+Una macchina produce pezzi di metallo di forma cilindrica. Viene estratto un campione di pezzi e i diametri sono misurati ottenendo: 1.01, 0.97, 1.03, 1.04, 0.99, 0.98, 0.99, 1.01 e 1.03 centimetri. 
+Trovare un intervallo di confidenza al 99% per il diametro medio dei pezzi prodotti da questa macchina, ipotizzando approssimativamente distribuzione normale.
+```{r}
+# IC per la MEDIA: varianza ignota --> d. T-student
+# trovare IC
+  diametro <- c(1.01, 0.97, 1.03, 1.04, 0.99, 0.98, 0.99, 1.01, 1.03)
+  
+  n = length(diametro)
+  xbar = mean(diametro)
+  sigma = sd(diametro)
+  alpha = 1-0.99
+  v = n-1
+  
+  t_a2 = qt(1-alpha/2, v)
+  
+  lower = xbar - t_a2 * sigma / sqrt(n)
+  upper = xbar + t_a2 * sigma / sqrt(n)
+
+  IC <- c(lower, upper)
+    IC
+
+```
+
+
+
+
+
+
+## 9.7
+Viene considerato un campione casuale di 12 perni per lo studio della durezza di Rockwell della testa del perno. Le misure della durezza di Rockwell sono realizzate per ciascuno dei 12 pezzi, ottenendo un valore medio 48.50 e deviazione standard campionaria 1.5. 
+Supponendo che le misure siano normalmente distribuite, costruire un intervallo di confidenza al 90% per la durezza media di Rockwell.
+```{r}
+# IC per la MEDIA: varianza nota --> d. normale Z
+# trovare IC
+  n = 12
+  xbar = 48.50
+  sigma = 1.5
+  alpha = 1-0.90
+  
+  z_a2 = qnorm(1-alpha/2)
+  
+  lower = xbar - z_a2 * sigma / sqrt(n)
+  upper = xbar + z_a2 * sigma / sqrt(n)
+  
+  IC <- c(lower, upper)
+    IC
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+## 9.10
+Un campione casuale di 25 compresse di aspirina tamponata contiene, in media, 325.05 mg di aspirina per compressa, con una deviazione standard di 0.5 mg. 
+Trovare i limiti di tolleranza al 95% che contengano il 90% del contenuto della compressa per questa marca di aspirina tamponata. Si supponga che il contenuto di aspirina sia distribuito normalmente.
+```{r}
+# IC per la MEDIA: varianza nota, ma per il calcolo del quantile si usa d. T-student
+# trovare IC
+  n = 25
+  xbar = 325.05
+  sigma = 0.5
+  alpha = 1-0.95
+  p = 0.90
+  v = n-1
+  
+  t_a2 = qt(1-alpha/2, v)
+  
+  lower = xbar - t_a2 * sigma
+  upper = xbar + t_a2 * sigma
+
+  IC <- c(lower, upper)
+    IC
+  
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 9.13
+Sono stati registrati i seguenti tempi di asciugatura, in ore, di un certo marchio di vernice acrilica:
+3.4, 2.5, 4.8, 2.9, 3.6, 2.8, 3.3, 5.6, 3.7, 2.8, 4.4, 4.0, 5.2, 3.0, 4.8.
+Si assuma che le misure siano un campione casuale estratto da una popolazione normale. Si supponga che alle 15 osservazioni se ne aggiunga una sedicesima di valore pari a 6.9 ore. 
+Rispetto alle originarie 15 osservazioni, il 16-esimo valore è un outlier? Giustificare.
+```{r}
+# metodo IQR: calcolare quartili, determinare i limiti, verifica se il 16-esimo valore supera i limiti
+  tempi <- c(3.4, 2.5, 4.8, 2.9, 3.6, 2.8, 3.3, 5.6, 3.7, 2.8, 4.4, 4.0, 5.2, 3.0, 4.8)
+  
+# quartili
+  Q1 = quantile(tempi, 0.25)
+  Q3 = quantile(tempi, 0.75)
+  
+  IQR = Q3 - Q1
+
+# limiti
+  lower = Q1 - 1.5 * IQR
+  upper = Q3 + 1.5 * IQR
+
+  IC <- c(lower, upper)
+    IC
+    
+# veririca
+  outlier <- 6.9 > upper | 6.9 < lower
+    outlier                               # è un outlier perchè non è compreso nell'IC
+  
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 9.27
+In un campione casuale di 1000 case in una certa città, si è constatato che 228 sono riscaldate a gasolio. 
+Si trovino gli intervalli di confidenza al 99% per la proporzione di case in questa città che sono riscaldate a gasolio.
+```{r}
+# IC per la PROPORZIONE: d.normale Z
+# trovare IC
+  n = 1000
+  x = 228
+  alpha = 1-0.99
+  
+  p = x/n
+  
+  sigma_p = sqrt(p*(1-p)/n)
+  
+  z_a2 = qnorm(1-alpha/2)
+  
+  lower = p - z_a2 * sigma_p
+  upper = p + z_a2 * sigma_p
+
+  IC <- c(lower, upper)
+    IC
+  
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 9.28
+In una città è stato selezionato un campione casuale di 200 elettori e 114 sostengono una petizione sull’annessione. 
+1. Trovare l’intervallo di confidenza al 96% per la porporzione della popolazione votante a favore della petizione.
+```{r}
+# IC per la PROPORZIONE: d.normale Z
+# trovare IC
+  n = 200
+  x = 114
+  p = x/n
+  alpha = 1-0.96
+  
+  sigma_p = sqrt(p*(1-p)/n)
+  
+  z_a2 = qnorm(1-alpha/2)
+  
+  lower = p - z_a2 * sigma_p
+  upper = p + z_a2 * sigma_p
+  
+  IC <- c(lower, upper)
+    IC
+
+```
+
+2. Cosa si può affermare con il 96% di confidenza sulla possibile dimensione dell’errore, se si stima che la proporzione degli elettori a favore della petizione sull’annessione è 0.57?
+```{r}
+  n = 200
+  x = 114
+  p = 0.57
+  alpha = 1-0.96
+  
+  sigma_p = sqrt(p*(1-p)/n)
+  
+  z_a2 = qnorm(1-alpha/2)
+
+  me = z_a2 * sigma_p
+    me
+  
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 9.29
+Un nuovo sistema di lancio di razzi viene preso in considerazione per piccoli razzi a corto raggio. Il sistema esistente ha p = 0.8 di probabilità che un lancio sia effettuato con successo. Un campione di 40 lanci sperimentali viene effettuato con il nuovo sistema e 34 hanno successo.
+Si costruisca un intervallo di confidenza al 95% per p. Si può concludere che il nuovo sistema sia il migliore?
+```{r}
+# IC per la PROPORZIONE: d.normale Z
+# trovare IC
+  n = 40
+  x = 34
+  p = x/n
+  alpha = 1-0.95
+  
+  sigma_p = sqrt(p*(1-p)/n)
+  
+  z_a2 = qnorm(1-alpha/2)
+  
+  lower = p - z_a2 * sigma_p
+  upper = p + z_a2 * sigma_p
+  
+  IC <- c(lower, upper)
+    IC
+    
+# sistema è migliore? --> paragone IC
+  # sistema esistente con p = 0.8
+  n1 = 40
+  x1 = 34
+  p1 = 0.8
+  alpha1 = 1-0.95
+  
+  sigma_p1 = sqrt(p1*(1-p1)/n1)
+  
+  z_a2.1 = qnorm(1-alpha1/2)
+  
+  lower1 = p1 - z_a2.1 * sigma_p1
+  upper1 = p1 + z_a2.1 * sigma_p1
+  
+  IC1 <- c(lower1, upper1)
+    IC1
+
+  # IC sistema 2 già trovato  
+    
+  # p = 0.8 è incluso nell'intervallo, quindi non è significativamente migliore
+    
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 9.37
+Un produttore di batterie per auto sostiene che le batterie dureranno, in media, 3 anni, con una varianza di 1 anno. Se 5 di queste batterie hanno durata di 1.9, 2.4, 3.0, 3.5, e 4.2 anni, si costruisca un intervallo di confidenza al 95% per $σ^2$ e si decida se l’affermazione del produttore su $σ^2=1$ sia valida. Si assuma che il popolazione della vita delle batterie sia approssimativamente normalmente distribuita.
+```{r}
+# IC per la VARIANZA: d.chi-quadro 
+# trovare IC
+  durata <- c(1.9, 2.4, 3.0, 3.5, 4.2)
+  n = 5
+  v = n-1
+  s2 = var(durata)
+  alpha = 1-0.95
+  
+  chi2_lower = qchisq(1-alpha/2, v)
+  chi2_upper = qchisq(alpha/2, v)
+  
+  lower = (s2 * (n-1)) / chi2_lower
+  upper = (s2 * (n-1)) / chi2_upper
+  
+  IC <- c(lower, upper)
+    IC
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+## 9.39
+Un campione casuale di 10 barrette energetiche al cioccolato di una certa marca ha, in media, 230 calorie per barretta, con una deviazione standard di 15 calorie. Si assuma che la distribuzione del contenuto di calorie sia approssimativamente normale. 
+Costruire un intervallo di confidenza al 99% per σ.
+```{r}
+# IC per la VARIANZA: d.chi-quadro 
+# trovare IC
+  n = 10
+  v = n-1
+  xbar = 230
+  s2 = 15^2
+  alpha = 1-0.99
+  
+  chi2_lower = qchisq(1-alpha/2, v)
+  chi2_upper = qchisq(alpha/2, v)
+  
+  lower = (s2 * (n-1)) / chi2_lower
+  upper = (s2 * (n-1)) / chi2_upper
+
+  IC <- c(lower, upper)
+    IC
+  
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
